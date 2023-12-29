@@ -1,10 +1,12 @@
+import axios from "axios";
+
 const url = process.env.NEXT_PUBLIC_API_URL;
 const token = process.env.NEXT_PUBLIC_TOKEN;
 
 export type ResponseType = {
   error: number;
   message: string;
-  data: [];
+  data: [] | null;
 };
 
 export type PostType = {
@@ -15,10 +17,10 @@ export type PostType = {
 };
 
 export type UserType = {
-  id: string | number;
+  id: string | number | null;
   name: string;
   email: string;
-  gender: "male" | "female";
+  gender: string;
   status: "active" | "inactive";
 };
 
@@ -31,20 +33,18 @@ export const getAllPosts = async ({
   per_page: string | number;
 }) => {
   try {
-    const response = await fetch(
+    const response = await axios(
       `${url}/posts?page=${page}&per_page=${per_page}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        cache: "no-cache",
       }
     );
-    const data: [] = await response.json();
     return {
       error: 0,
       message: "success",
-      data,
+      data: response.data,
     } satisfies ResponseType;
   } catch (error: any) {
     return {
@@ -77,25 +77,46 @@ export const getAllUsers = async ({
         )
         .join("&");
     }
-    const response = await fetch(
+    const response = await axios(
       `${url}/users?page=${page}&per_page=${per_page}&${queryString}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        cache: "no-cache",
       }
     );
-    const data: [] = await response.json();
     return {
       error: 0,
       message: "success",
-      data,
+      data: response.data,
     } satisfies ResponseType;
   } catch (error: any) {
     return {
       error: 1,
       message: error.message,
+      data: [],
+    } satisfies ResponseType;
+  }
+};
+
+export const addNewUser = async (data: FormData) => {
+  try {
+    const res = await axios(`${url}/users`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data,
+    });
+    return {
+      error: 0,
+      message: "success",
+      data: null,
+    } satisfies ResponseType;
+  } catch (error: any) {
+    return {
+      error: 1,
+      message: error.response.data,
       data: [],
     } satisfies ResponseType;
   }

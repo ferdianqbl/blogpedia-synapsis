@@ -8,10 +8,12 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import UsersLoading from "./users-loading";
 import { useDebounce } from "use-debounce";
+import AddNewUser from "./add-new-user";
 
 const AllUsers = () => {
   const [users, setUsers] = useState<UserType[] | []>([]);
   const [query, setQuery] = useState<Partial<UserType> | null>(null);
+  const [addNewUserTrigger, setAddNewUserTrigger] = useState<boolean>(false);
   const [queryDebounce] = useDebounce(query, 1000);
   const [isNextPage, setIsNextPage] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -42,12 +44,15 @@ const AllUsers = () => {
 
   useEffect(() => {
     getAllData();
-  }, [page, queryDebounce]);
+  }, [page, queryDebounce, addNewUserTrigger]);
 
   return (
     <div className="flex flex-col gap-4">
       <Input placeholder="Search users" onChange={onChangeHandler} />
-
+      <AddNewUser
+        setTrigger={setAddNewUserTrigger}
+        trigger={addNewUserTrigger}
+      />
       {loading ? (
         <UsersLoading />
       ) : users.length > 0 ? (
