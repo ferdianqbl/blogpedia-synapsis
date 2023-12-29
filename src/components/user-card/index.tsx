@@ -13,7 +13,7 @@ const UserCard: React.FC<Props> = ({ data }) => {
       <CardContent className="p-4 flex items-center gap-3">
         <Avatar>
           <AvatarImage
-            src={`https://source.unsplash.com/random/?${
+            src={`https://source.unsplash.com/random/300x300/?${
               data.gender
             }&${randomNum(1, 100)}`}
           />

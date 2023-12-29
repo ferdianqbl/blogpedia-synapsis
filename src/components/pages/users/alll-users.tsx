@@ -1,29 +1,29 @@
 "use client";
-import PostCard from "@/components/post-card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PostType, getAllPosts } from "@/lib/api";
+import UserCard from "@/components/user-card";
+import { UserType, getAllUsers } from "@/lib/api";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const AllPosts = () => {
-  const [posts, setPosts] = useState<PostType[] | []>([]);
+const AllUsers = () => {
+  const [users, setUsers] = useState<UserType[] | []>([]);
   const [isNextPage, setIsNextPage] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const getAllData = async () => {
     setLoading(true);
-    const res = await getAllPosts({
+    const res = await getAllUsers({
       page,
-      per_page: 10,
+      per_page: 15,
     });
-    const nextPage = await getAllPosts({
+    const nextPage = await getAllUsers({
       page: page + 1,
-      per_page: 10,
+      per_page: 15,
     });
     setIsNextPage(nextPage.data.length > 0);
-    setPosts(res.data);
+    setUsers(res.data);
     setLoading(false);
   };
 
@@ -34,18 +34,18 @@ const AllPosts = () => {
   if (loading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
-        <Skeleton className="h-screen max-h-[150px] w-full rounded-md" />
-        <Skeleton className="h-screen max-h-[150px] w-full rounded-md" />
-        <Skeleton className="h-screen max-h-[150px] w-full rounded-md" />
-        <Skeleton className="h-screen max-h-[150px] w-full rounded-md" />
-        <Skeleton className="h-screen max-h-[150px] w-full rounded-md" />
-        <Skeleton className="h-screen max-h-[150px] w-full rounded-md" />
-        <Skeleton className="h-screen max-h-[150px] w-full rounded-md" />
-        <Skeleton className="h-screen max-h-[150px] w-full rounded-md" />
-        <Skeleton className="h-screen max-h-[150px] w-full rounded-md" />
-        <Skeleton className="h-screen max-h-[150px] w-full rounded-md" />
-        <Skeleton className="h-screen max-h-[150px] w-full rounded-md" />
-        <Skeleton className="h-screen max-h-[150px] w-full rounded-md" />
+        <Skeleton className="h-screen max-h-[100px] w-full rounded-md" />
+        <Skeleton className="h-screen max-h-[100px] w-full rounded-md" />
+        <Skeleton className="h-screen max-h-[100px] w-full rounded-md" />
+        <Skeleton className="h-screen max-h-[100px] w-full rounded-md" />
+        <Skeleton className="h-screen max-h-[100px] w-full rounded-md" />
+        <Skeleton className="h-screen max-h-[100px] w-full rounded-md" />
+        <Skeleton className="h-screen max-h-[100px] w-full rounded-md" />
+        <Skeleton className="h-screen max-h-[100px] w-full rounded-md" />
+        <Skeleton className="h-screen max-h-[100px] w-full rounded-md" />
+        <Skeleton className="h-screen max-h-[100px] w-full rounded-md" />
+        <Skeleton className="h-screen max-h-[100px] w-full rounded-md" />
+        <Skeleton className="h-screen max-h-[100px] w-full rounded-md" />
       </div>
     );
   }
@@ -81,13 +81,13 @@ const AllPosts = () => {
         )}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
-        {posts.map((post) => (
+        {users.map((user) => (
           <Link
-            href={`/posts/${post.id}`}
-            key={post.id}
+            href={`/users/${user.id}`}
+            key={user.id}
             className="flex items-center justify-center w-full hover:scale-105 transition-all duration-300"
           >
-            <PostCard data={post} key={post.id} />
+            <UserCard data={user} key={user.id} />
           </Link>
         ))}
       </div>
@@ -123,4 +123,4 @@ const AllPosts = () => {
   );
 };
 
-export default AllPosts;
+export default AllUsers;
