@@ -2,22 +2,30 @@
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { UserType, getUserById } from "@/lib/api";
+import { UserType, deleteUserById, getUserById } from "@/lib/api";
 import { randomNum } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import EditUser from "./edit-user";
+import { useRouter } from "next/navigation";
 
 const UserDetailInformation = ({ userId }: { userId: string | number }) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [trigger, setTrigger] = useState<boolean>(false);
-
+  const { push } = useRouter();
   const getData = async () => {
     setLoading(true);
     const res = await getUserById(userId);
     setUser(res.data);
     setLoading(false);
+  };
+
+  const deleteHandler = async () => {
+    const res = await deleteUserById(userId);
+    if (res.error === 0) {
+      push("/users");
+    }
   };
 
   useEffect(() => {
@@ -53,6 +61,7 @@ const UserDetailInformation = ({ userId }: { userId: string | number }) => {
       <div className="flex items-center gap-1 mt-3">
         <EditUser data={user} trigger={trigger} setTrigger={setTrigger} />
         <Button
+          onClick={deleteHandler}
           variant={"outline"}
           size={"sm"}
           className="border-red-500 bg-background hover:bg-red-50 hover:text-accent-foreground"

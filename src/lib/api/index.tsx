@@ -186,3 +186,26 @@ export const getUserPosts = async (id: string | number) => {
     } satisfies ResponseType;
   }
 };
+
+export const deleteUserById = async (id: string | number) => {
+  try {
+    await axios(`${url}/users/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return {
+      error: 0,
+      message: "success",
+      data: null,
+    } satisfies ResponseType;
+  } catch (error: any) {
+    return {
+      error: 1,
+      message: error.response.data,
+      data: [],
+    } satisfies ResponseType;
+  }
+};
