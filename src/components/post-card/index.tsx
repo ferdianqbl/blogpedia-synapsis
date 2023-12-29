@@ -1,19 +1,36 @@
-const PostCard = () => {
+import { PostType } from "@/lib/api";
+import { Card, CardContent } from "../ui/card";
+import Image from "next/image";
+import { randomNum } from "@/lib/utils";
+
+type Props = {
+  data: PostType;
+};
+
+const PostCard: React.FC<Props> = ({ data }) => {
   return (
-    // <MainCard>
-    //   <div className="flex flex-col w-full">
-    //     <Image
-    //       src="https://source.unsplash.com/random/?Cryptocurrency&1"
-    //       width={300}
-    //       height={200}
-    //       alt="Post Image"
-    //     />
-    //     <h2 className="text-2xl font-bold">Post Title</h2>
-    //     <p className="text-sm text-gray-500">Post Date</p>
-    //     <p className="text-sm text-gray-500">Post Excerpt</p>
-    //   </div>
-    // </MainCard>
-    <h1>Test1</h1>
+    <Card className="w-full h-full overflow-hidden">
+      <CardContent className="p-0">
+        <Image
+          src={`https://source.unsplash.com/random/?technology&${randomNum(
+            1,
+            100
+          )}`}
+          width={300}
+          height={200}
+          alt="blog img"
+          className="aspect-video object-cover object-center"
+        />
+        <div className="p-4">
+          <h5 className="font-medium overflow-ellipsis whitespace-nowrap overflow-hidden">
+            {data.title}
+          </h5>
+          <p className="text-gray-500 overflow-ellipsis whitespace-nowrap overflow-hidden">
+            {data.body}
+          </p>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
