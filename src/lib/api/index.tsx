@@ -59,13 +59,26 @@ export const getAllPosts = async ({
 export const getAllUsers = async ({
   page = 1,
   per_page = 10,
+  query = null,
 }: {
   page: string | number;
   per_page: string | number;
+  query?: Partial<UserType> | null;
 }) => {
   try {
+    let queryString = "";
+    if (query) {
+      queryString = Object.keys(query)
+        .map(
+          (key) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(
+              (query as any)[key]
+            )}`
+        )
+        .join("&");
+    }
     const response = await fetch(
-      `${url}/users?page=${page}&per_page=${per_page}`,
+      `${url}/users?page=${page}&per_page=${per_page}&${queryString}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
