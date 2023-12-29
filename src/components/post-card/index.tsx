@@ -19,7 +19,7 @@ const PostCard: React.FC<Props> = ({ data }) => {
           width={300}
           height={200}
           alt="blog img"
-          className="aspect-video object-cover object-center"
+          className="w-full h-full max-h-[150px] object-cover object-center"
         />
         <div className="p-4">
           <h5 className="font-medium overflow-ellipsis whitespace-nowrap overflow-hidden">
