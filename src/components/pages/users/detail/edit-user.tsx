@@ -13,35 +13,35 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
-import { UserType, addNewUser } from "@/lib/api";
-import { useRouter } from "next/navigation";
+import { UserType, addNewUser, editUserById } from "@/lib/api";
 
 type Props = {
+  data: UserType | null;
   trigger: boolean;
   setTrigger: (trigger: boolean) => void;
 };
 
-const AddNewUser: React.FC<Props> = ({ trigger, setTrigger }) => {
+const EditUser: React.FC<Props> = ({ data, trigger, setTrigger }) => {
   const [formData, setFormData] = useState<UserType>({
-    id: null,
-    email: "",
-    gender: "male",
-    name: "",
-    status: "active",
+    id: data?.id || null,
+    email: data?.email || "",
+    gender: data?.gender || "",
+    name: data?.name || "",
+    status: data?.status || "active",
   });
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [error, setError] = useState<[]>([]);
+  const [error, setError] = useState<any[]>([]);
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     setIsSubmitting(true);
     setError([]);
     e.preventDefault();
-    const data = new FormData();
-    data.append("name", formData.name);
-    data.append("email", formData.email);
-    data.append("gender", formData.gender);
-    data.append("status", "active");
-    const res = await addNewUser(data);
+    const newData = new FormData();
+    newData.append("name", formData.name);
+    newData.append("email", formData.email);
+    newData.append("gender", formData.gender);
+    newData.append("status", "active");
+    const res = await editUserById(data?.id!, newData);
     if (res.error === 1) setError(res.message);
     else {
       setError([]);
@@ -53,7 +53,9 @@ const AddNewUser: React.FC<Props> = ({ trigger, setTrigger }) => {
   return (
     <Dialog>
       <DialogTrigger asChild className="w-fit">
-        <Button>Add Creator</Button>
+        <Button size={"sm"} className="bg-green-500 hover:bg-green-500/90">
+          Edit
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -104,7 +106,7 @@ const AddNewUser: React.FC<Props> = ({ trigger, setTrigger }) => {
           </RadioGroup>
           <DialogFooter>
             <Button type="submit" disabled={isSubmitting}>
-              Add
+              Edit
             </Button>
           </DialogFooter>
         </form>
@@ -113,4 +115,4 @@ const AddNewUser: React.FC<Props> = ({ trigger, setTrigger }) => {
   );
 };
 
-export default AddNewUser;
+export default EditUser;

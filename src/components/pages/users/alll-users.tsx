@@ -37,6 +37,7 @@ const AllUsers = () => {
   };
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPage(1);
     setQuery({
       name: e.target.value,
     });

@@ -121,3 +121,68 @@ export const addNewUser = async (data: FormData) => {
     } satisfies ResponseType;
   }
 };
+
+export const editUserById = async (id: string | number, data: FormData) => {
+  try {
+    const res = await axios(`${url}/users/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data,
+    });
+    return {
+      error: 0,
+      message: "success",
+      data: null,
+    } satisfies ResponseType;
+  } catch (error: any) {
+    return {
+      error: 1,
+      message: error.response.data,
+      data: [],
+    } satisfies ResponseType;
+  }
+};
+
+export const getUserById = async (id: string | number) => {
+  try {
+    const res = await axios(`${url}/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return {
+      error: 0,
+      message: "success",
+      data: res.data satisfies UserType,
+    };
+  } catch (error: any) {
+    return {
+      error: 1,
+      message: error.response.data,
+      data: null,
+    } satisfies ResponseType;
+  }
+};
+
+export const getUserPosts = async (id: string | number) => {
+  try {
+    const res = await axios(`${url}/users/${id}/posts`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return {
+      error: 0,
+      message: "success",
+      data: res.data,
+    } satisfies ResponseType;
+  } catch (error: any) {
+    return {
+      error: 1,
+      message: error.response.data,
+      data: [],
+    } satisfies ResponseType;
+  }
+};
