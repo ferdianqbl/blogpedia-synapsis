@@ -18,17 +18,16 @@ const Page = async ({ params: { userId } }: { params: { userId: string } }) => {
           This is a simple blog app built with Next.js and Tailwind CSS.
         </p>
       </div>
-      <div className="flex flex-col gap-8">
-        <UserDetailInformation userId={userId} />
-        <div className="flex flex-col">
-          <h2 className="text-xl font-semibold">
-            <span className="text-blue-600">All</span> Posts
-          </h2>
-          <small className="mb-4 text-gray-400">
-            Find your favorite post from this creator.
-          </small>
-          <UserDetailPosts userId={userId} />
-        </div>
+      <UserDetailInformation userId={userId} />
+
+      <div className="flex flex-col">
+        <h2 className="text-xl font-semibold">
+          <span className="text-blue-600">All</span> Posts
+        </h2>
+        <small className="mb-4 text-gray-400">
+          Find your favorite post from this creator.
+        </small>
+        <UserDetailPosts userId={userId} />
       </div>
     </div>
   );

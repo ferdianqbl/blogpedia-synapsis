@@ -1,35 +1,41 @@
-"use client";
-
-import { PostType, UserType, getDetailPostById, getUserById } from "@/lib/api";
-import { useEffect, useState } from "react";
+import { PostType, UserType } from "@/lib/api";
+import Image from "next/image";
+import { randomNum } from "@/lib/utils";
 
 type Props = {
-  id: string | number;
+  post: PostType;
+  user: UserType | null;
 };
 
-const DetailPostInformation: React.FC<Props> = ({ id }) => {
-  const [post, setPost] = useState<PostType | null>(null);
-  const [user, setUser] = useState<UserType | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+const DetailPostInformation: React.FC<Props> = async ({ post, user }) => {
+  return (
+    <div className="flex flex-col gap-4 w-full md:w-3/4 justify-center mx-auto">
+      <Image
+        src={`https://source.unsplash.com/random/landscape/?technology&${randomNum(
+          1,
+          100
+        )}`}
+        width={500}
+        height={300}
+        alt="user img"
+        className="w-full max-h-[300px] object-cover object-center rounded-md"
+      />
 
-  const getPostAndUserData = async () => {
-    setLoading(true);
-    const postsRes = await getDetailPostById(id);
-    if (postsRes.error === 1) return;
-
-    const userRes = await getUserById(postsRes.data?.user_id);
-    if (userRes.error === 1) return;
-
-    setPost(postsRes.data);
-    setUser(userRes.data);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getPostAndUserData();
-  }, [id]);
-
-  return <div>DetailPostInformation</div>;
+      <div className="flex flex-col gap-2 w-full">
+        <h1 className="text-blue-600 font-bold text-2xl text-center">
+          {post.title}
+        </h1>
+        {user && (
+          <p className="text-center text-gray-400 text-sm">
+            <span className="text-blue-600">By</span> {user.name}
+            <br />
+            {user.email}
+          </p>
+        )}
+      </div>
+      <p className="">{post.body}</p>
+    </div>
+  );
 };
 
 export default DetailPostInformation;

@@ -69,7 +69,7 @@ const DetailPostComment: React.FC<Props> = ({ id }) => {
           ))}
         </div>
       ) : (
-        <p className="text-center w-full">No comments yet.</p>
+        <p className="w-full">No comments yet.</p>
       )}
     </>
   );
