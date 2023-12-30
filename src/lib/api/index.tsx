@@ -55,6 +55,27 @@ export const getAllPosts = async ({
   }
 };
 
+export const getDetailPostById = async (id: string | number) => {
+  try {
+    const res = await axios(`${url}/posts/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return {
+      error: 0,
+      message: "success",
+      data: res.data satisfies PostType,
+    } satisfies ResponseType;
+  } catch (error: any) {
+    return {
+      error: 1,
+      message: error.message,
+      data: null,
+    } satisfies ResponseType;
+  }
+};
+
 // USERS
 export const getAllUsers = async ({
   page = 1,

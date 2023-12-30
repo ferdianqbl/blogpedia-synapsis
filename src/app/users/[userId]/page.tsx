@@ -1,7 +1,13 @@
 import UserDetailInformation from "@/components/pages/users/detail/user-detail-information";
 import UserDetailPosts from "@/components/pages/users/detail/user-detail-posts";
+import { getUserById } from "@/lib/api";
+import { redirect } from "next/navigation";
 
-const Page = ({ params: { userId } }: { params: { userId: string } }) => {
+const Page = async ({ params: { userId } }: { params: { userId: string } }) => {
+  const { error } = await getUserById(userId);
+
+  if (error === 1) redirect("/");
+
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-1 items-center justify-center">
