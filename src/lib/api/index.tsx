@@ -239,10 +239,36 @@ export const deleteUserById = async (id: string | number) => {
   }
 };
 
-// COMMENTS
-export const getCommentsByPostId = async (id: string | number) => {
+export const addNewUserPost = async (
+  userId: string | number,
+  data: FormData
+) => {
   try {
-    const res = await axios(`${url}/posts/${id}/comments`, {
+    const res = await axios(`${url}/users/${userId}/posts`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data,
+    });
+    return {
+      error: 0,
+      message: "success",
+      data: null,
+    } satisfies ResponseType;
+  } catch (error: any) {
+    return {
+      error: 1,
+      message: error.message,
+      data: null,
+    } satisfies ResponseType;
+  }
+};
+
+// COMMENTS
+export const getCommentsByPostId = async (postId: string | number) => {
+  try {
+    const res = await axios(`${url}/posts/${postId}/comments`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -257,6 +283,32 @@ export const getCommentsByPostId = async (id: string | number) => {
       error: 1,
       message: error.message,
       data: [],
+    } satisfies ResponseType;
+  }
+};
+
+export const addNewComment = async (
+  postId: string | number,
+  data: FormData
+) => {
+  try {
+    const res = await axios(`${url}/posts/${postId}/comments`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data,
+    });
+    return {
+      error: 0,
+      message: "success",
+      data: null,
+    } satisfies ResponseType;
+  } catch (error: any) {
+    return {
+      error: 1,
+      message: error.message,
+      data: null,
     } satisfies ResponseType;
   }
 };
