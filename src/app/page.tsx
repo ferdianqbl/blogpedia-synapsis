@@ -16,7 +16,7 @@ export default function Home() {
         <h2 className="text-xl font-semibold">
           <span className="text-blue-600">Latest</span> Posts
         </h2>
-        <small className="mb-4">
+        <small className="mb-4 text-gray-400">
           Find your favorite post and see the author&apos;s profile.
         </small>
         <HomePostsList />
@@ -26,7 +26,7 @@ export default function Home() {
         <h2 className="text-xl font-semibold">
           <span className="text-blue-600">Latest</span> Users
         </h2>
-        <small className="mb-4">
+        <small className="mb-4 text-gray-400">
           Find your favorite user and see their latest posts.
         </small>
         <HomeUsersList />

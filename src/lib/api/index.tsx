@@ -24,6 +24,14 @@ export type UserType = {
   status: "active" | "inactive";
 };
 
+export type CommentType = {
+  id: string | number;
+  post_id: string | number;
+  name: string;
+  email: string;
+  body: string;
+};
+
 // POSTS
 export const getAllPosts = async ({
   page = 1,
@@ -226,6 +234,28 @@ export const deleteUserById = async (id: string | number) => {
     return {
       error: 1,
       message: error.response.data,
+      data: [],
+    } satisfies ResponseType;
+  }
+};
+
+// COMMENTS
+export const getCommentsByPostId = async (id: string | number) => {
+  try {
+    const res = await axios(`${url}/posts/${id}/comments`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return {
+      error: 0,
+      message: "success",
+      data: res.data,
+    } satisfies ResponseType;
+  } catch (error: any) {
+    return {
+      error: 1,
+      message: error.message,
       data: [],
     } satisfies ResponseType;
   }
