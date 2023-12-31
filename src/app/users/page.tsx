@@ -1,4 +1,4 @@
-import AllUsers from "@/components/pages/users/alll-users";
+import AllUsers from "@/components/pages/users/all-users";
 
 const Page = () => {
   return (

@@ -99,7 +99,7 @@ const AllUsers = () => {
           </div>
         </div>
       ) : (
-        <p className="text-center w-full">No users found</p>
+        <p className="text-center w-full">No Users found</p>
       )}
     </div>
   );

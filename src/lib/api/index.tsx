@@ -36,13 +36,26 @@ export type CommentType = {
 export const getAllPosts = async ({
   page = 1,
   per_page = 10,
+  query = null,
 }: {
   page: string | number;
   per_page: string | number;
+  query?: Partial<PostType> | null;
 }) => {
   try {
+    let queryString = "";
+    if (query) {
+      queryString = Object.keys(query)
+        .map(
+          (key) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(
+              (query as any)[key]
+            )}`
+        )
+        .join("&");
+    }
     const response = await axios(
-      `${url}/posts?page=${page}&per_page=${per_page}`,
+      `${url}/posts?page=${page}&per_page=${per_page}&${queryString}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -106,6 +119,7 @@ export const deletePostById = async (id: string | number) => {
     } satisfies ResponseType;
   }
 };
+
 // USERS
 export const getAllUsers = async ({
   page = 1,
