@@ -87,7 +87,7 @@ const AddNewUserPost: React.FC<Props> = ({ userId }) => {
           />
           <DialogFooter>
             <Button type="submit" disabled={isSubmitting}>
-              Edit
+              Add Post
             </Button>
           </DialogFooter>
         </form>
