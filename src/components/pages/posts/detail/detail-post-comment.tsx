@@ -3,6 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { CommentType, getCommentsByPostId } from "@/lib/api";
 import { useEffect, useState } from "react";
 import UserCommentCard from "./user-comment-card";
+import Comments from "./comments";
 
 type Props = {
   id: string | number;
@@ -11,7 +12,7 @@ type Props = {
 const DetailPostComment: React.FC<Props> = ({ id }) => {
   const [comments, setComments] = useState<CommentType[] | []>([]);
   const [loading, setLoading] = useState<boolean>(false);
-
+  const [trigger, setTrigger] = useState<boolean>(false);
   const getComments = async () => {
     setLoading(true);
     const res = await getCommentsByPostId(id);
@@ -22,7 +23,7 @@ const DetailPostComment: React.FC<Props> = ({ id }) => {
 
   useEffect(() => {
     getComments();
-  }, [id]);
+  }, [id, trigger]);
 
   if (loading)
     return (
@@ -61,7 +62,7 @@ const DetailPostComment: React.FC<Props> = ({ id }) => {
     );
 
   return (
-    <>
+    <div className="flex flex-col gap-3">
       {comments?.length > 0 ? (
         <div className="flex flex-col gap-6 w-full">
           {comments.map((comment) => (
@@ -71,7 +72,8 @@ const DetailPostComment: React.FC<Props> = ({ id }) => {
       ) : (
         <p className="w-full">No comments yet.</p>
       )}
-    </>
+      <Comments postId={id} setTrigger={setTrigger} trigger={trigger} />
+    </div>
   );
 };
 
