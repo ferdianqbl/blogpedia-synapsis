@@ -1,13 +1,27 @@
+"use client";
+
 import PostCard from "@/components/post-card";
 import { PostType, getUserPosts } from "@/lib/api";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import UsersLoading from "../users-loading";
 
-const UserDetailPosts = async ({ userId }: { userId: string | number }) => {
-  const {
-    data,
-  }: {
-    data: PostType[];
-  } = await getUserPosts(userId);
+const UserDetailPosts = ({ userId }: { userId: string | number }) => {
+  const [data, setData] = useState<PostType[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const getData = async () => {
+    setLoading(true);
+    const res = await getUserPosts(userId);
+    setData(res.data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getData();
+  }, [userId]);
+
+  if (loading) return <UsersLoading />;
+
   return (
     <>
       {data.length > 0 ? (

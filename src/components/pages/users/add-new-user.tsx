@@ -58,7 +58,7 @@ const AddNewUser: React.FC<Props> = ({ trigger, setTrigger }) => {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add Creator</DialogTitle>
-          <DialogDescription>Add new Creator Post</DialogDescription>
+          <DialogDescription>Add new Creator</DialogDescription>
         </DialogHeader>
         <form className="flex flex-col gap-2" onSubmit={onSubmitHandler}>
           {error?.length > 0 && (

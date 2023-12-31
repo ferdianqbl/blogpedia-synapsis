@@ -16,7 +16,7 @@ const AllUsers = () => {
   const [addNewUserTrigger, setAddNewUserTrigger] = useState<boolean>(false);
   const [queryDebounce] = useDebounce(query, 1000);
   const [isNextPage, setIsNextPage] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
 
   const getAllData = async () => {

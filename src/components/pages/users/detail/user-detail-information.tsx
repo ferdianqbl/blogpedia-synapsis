@@ -8,10 +8,12 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import EditUser from "./edit-user";
 import { useRouter } from "next/navigation";
+import { Trash } from "lucide-react";
+import AddNewUserPost from "./add-new-user-post";
 
 const UserDetailInformation = ({ userId }: { userId: string | number }) => {
   const [user, setUser] = useState<UserType | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [trigger, setTrigger] = useState<boolean>(false);
   const { push } = useRouter();
   const getData = async () => {
@@ -46,7 +48,7 @@ const UserDetailInformation = ({ userId }: { userId: string | number }) => {
     );
 
   return (
-    <div className="flex flex-col items-center justify-center gap-1">
+    <div className="flex flex-col items-center justify-center gap-1 relative w-full md:w-[400px] lg:w-[350px] mx-auto break-all">
       <Image
         src={`https://source.unsplash.com/random/300x300/?${
           user?.gender
@@ -58,17 +60,22 @@ const UserDetailInformation = ({ userId }: { userId: string | number }) => {
       />
       <h1 className="text-2xl font-bold">{user?.name}</h1>
       <p className="text-gray-400">{user?.email}</p>
-      <div className="flex items-center gap-1 mt-3">
+      <div className="flex flex-col justify-center items-center gap-1 mt-3 absolute -top-5 right-0">
         <EditUser data={user} trigger={trigger} setTrigger={setTrigger} />
         <Button
           onClick={deleteHandler}
-          variant={"outline"}
-          size={"sm"}
-          className="border-red-500 bg-background hover:bg-red-50 hover:text-accent-foreground"
+          variant={"ghost"}
+          size={"icon"}
+          className="text-red-500 bg-transparent hover:text-red-500/50 hover:bg-transparent"
         >
-          Delete
+          <Trash className="h-5 w-5" />
         </Button>
       </div>
+      <AddNewUserPost
+        userId={userId}
+        setTrigger={setTrigger}
+        trigger={trigger}
+      />
     </div>
   );
 };

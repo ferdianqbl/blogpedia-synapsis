@@ -27,6 +27,7 @@ const Page = async ({ params: { userId } }: { params: { userId: string } }) => {
         <small className="mb-4 text-gray-400">
           Find your favorite post from this creator.
         </small>
+
         <UserDetailPosts userId={userId} />
       </div>
     </div>

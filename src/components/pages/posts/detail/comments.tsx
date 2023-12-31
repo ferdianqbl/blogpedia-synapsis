@@ -11,7 +11,7 @@ type Props = {
 };
 
 const Comments: React.FC<Props> = ({ postId, setTrigger, trigger }) => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [formData, setFormData] = useState<CommentType>({
     id: "",

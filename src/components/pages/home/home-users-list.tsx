@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 const HomeUsersList = () => {
   const [users, setUsers] = useState<UserType[] | []>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getAllData = async () => {
     setLoading(true);

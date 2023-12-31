@@ -11,7 +11,7 @@ type Props = {
 
 const DetailPostComment: React.FC<Props> = ({ id }) => {
   const [comments, setComments] = useState<CommentType[] | []>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [trigger, setTrigger] = useState<boolean>(false);
   const getComments = async () => {
     setLoading(true);

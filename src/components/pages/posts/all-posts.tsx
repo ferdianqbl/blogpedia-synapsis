@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 const AllPosts = () => {
   const [posts, setPosts] = useState<PostType[] | []>([]);
   const [isNextPage, setIsNextPage] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
   const getAllData = async () => {
     setLoading(true);

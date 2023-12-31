@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
 import { UserType, addNewUser, editUserById } from "@/lib/api";
+import { Edit } from "lucide-react";
 
 type Props = {
   data: UserType | null;
@@ -53,8 +54,11 @@ const EditUser: React.FC<Props> = ({ data, trigger, setTrigger }) => {
   return (
     <Dialog>
       <DialogTrigger asChild className="w-fit">
-        <Button size={"sm"} className="bg-green-500 hover:bg-green-500/90">
-          Edit
+        <Button
+          size={"icon"}
+          className="text-green-500 hover:text-green-500/50 bg-transparent hover:bg-transparent"
+        >
+          <Edit className="w-5 h-5" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -89,9 +93,9 @@ const EditUser: React.FC<Props> = ({ data, trigger, setTrigger }) => {
             value={formData.email}
           />
           <RadioGroup
-            defaultValue="male"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setFormData({ ...formData, gender: e.target.value })
+            defaultValue={formData.gender}
+            onValueChange={(e: string) =>
+              setFormData({ ...formData, gender: e })
             }
             className="flex items-center gap-4"
           >
