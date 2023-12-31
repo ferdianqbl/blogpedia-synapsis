@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 import Navbar from "@/components/navbar";
 import ProgressBarProvider from "@/lib/context/progress-provider";
 

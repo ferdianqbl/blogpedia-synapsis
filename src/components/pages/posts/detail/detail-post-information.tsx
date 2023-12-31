@@ -19,6 +19,7 @@ const DetailPostInformation: React.FC<Props> = async ({ post, user }) => {
         height={300}
         alt="user img"
         className="w-full max-h-[300px] object-cover object-center rounded-md"
+        priority
       />
 
       <div className="flex flex-col gap-2 w-full">

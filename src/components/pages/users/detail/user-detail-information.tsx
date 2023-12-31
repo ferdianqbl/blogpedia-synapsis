@@ -56,6 +56,7 @@ const UserDetailInformation = ({ userId }: { userId: string | number }) => {
         width={300}
         height={300}
         alt="user img"
+        priority
         className="w-28 h-w-28 object-cover object-center rounded-full"
       />
       <h1 className="text-2xl font-bold">{user?.name}</h1>

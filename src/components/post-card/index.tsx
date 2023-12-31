@@ -19,6 +19,7 @@ const PostCard: React.FC<Props> = ({ data }) => {
           width={300}
           height={200}
           alt="blog img"
+          priority
           className="w-full h-full max-h-[150px] object-cover object-center"
         />
         <div className="p-4">

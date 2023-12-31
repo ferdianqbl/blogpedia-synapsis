@@ -14,7 +14,6 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
 import { UserType, addNewUser } from "@/lib/api";
-import { useRouter } from "next/navigation";
 
 type Props = {
   trigger: boolean;
@@ -88,8 +87,8 @@ const AddNewUser: React.FC<Props> = ({ trigger, setTrigger }) => {
           />
           <RadioGroup
             defaultValue="male"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setFormData({ ...formData, gender: e.target.value })
+            onValueChange={(e: string) =>
+              setFormData({ ...formData, gender: e })
             }
             className="flex items-center gap-4"
           >
