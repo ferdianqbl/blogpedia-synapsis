@@ -84,6 +84,28 @@ export const getDetailPostById = async (id: string | number) => {
   }
 };
 
+export const deletePostById = async (id: string | number) => {
+  try {
+    await axios(`${url}/posts/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return {
+      error: 0,
+      message: "success",
+      data: null,
+    } satisfies ResponseType;
+  } catch (error: any) {
+    return {
+      error: 1,
+      message: error.message,
+      data: null,
+    } satisfies ResponseType;
+  }
+};
 // USERS
 export const getAllUsers = async ({
   page = 1,
