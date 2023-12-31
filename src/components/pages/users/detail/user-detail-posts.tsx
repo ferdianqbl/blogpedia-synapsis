@@ -5,10 +5,13 @@ import { PostType, getUserPosts } from "@/lib/api";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import UsersLoading from "../users-loading";
+import { useUserNewPost } from "@/lib/context/user-new-post";
 
 const UserDetailPosts = ({ userId }: { userId: string | number }) => {
   const [data, setData] = useState<PostType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const { addUserNewPostButton } = useUserNewPost();
+
   const getData = async () => {
     setLoading(true);
     const res = await getUserPosts(userId);
@@ -18,7 +21,7 @@ const UserDetailPosts = ({ userId }: { userId: string | number }) => {
 
   useEffect(() => {
     getData();
-  }, [userId]);
+  }, [userId, addUserNewPostButton]);
 
   if (loading) return <UsersLoading />;
 

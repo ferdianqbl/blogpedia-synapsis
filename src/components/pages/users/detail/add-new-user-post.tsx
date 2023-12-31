@@ -12,22 +12,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { PostType, addNewUserPost } from "@/lib/api";
+import { useUserNewPost } from "@/lib/context/user-new-post";
 import { useState } from "react";
 
 type Props = {
-  trigger: boolean;
-  setTrigger: (trigger: boolean) => void;
   userId: string | number;
 };
 
-const AddNewUserPost: React.FC<Props> = ({ setTrigger, trigger, userId }) => {
+const AddNewUserPost: React.FC<Props> = ({ userId }) => {
   const [formData, setFormData] = useState<PostType>({
     id: "",
     user_id: userId,
     title: "",
     body: "",
   });
-
+  const { addUserNewPostButton, setAddUserNewPostButton } = useUserNewPost();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<any[]>([]);
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,7 +42,7 @@ const AddNewUserPost: React.FC<Props> = ({ setTrigger, trigger, userId }) => {
     if (res.error === 1) setError(res.message);
     else {
       setError([]);
-      setTrigger(!trigger);
+      setAddUserNewPostButton(!addUserNewPostButton);
     }
     setIsSubmitting(false);
   };

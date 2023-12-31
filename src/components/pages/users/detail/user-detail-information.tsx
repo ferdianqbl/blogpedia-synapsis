@@ -71,11 +71,7 @@ const UserDetailInformation = ({ userId }: { userId: string | number }) => {
           <Trash className="h-5 w-5" />
         </Button>
       </div>
-      <AddNewUserPost
-        userId={userId}
-        setTrigger={setTrigger}
-        trigger={trigger}
-      />
+      <AddNewUserPost userId={userId} />
     </div>
   );
 };
