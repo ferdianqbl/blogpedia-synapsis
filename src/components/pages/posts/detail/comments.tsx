@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CommentType, addNewComment } from "../../../../lib/api";
 import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 type Props = {
   postId: string | number;
@@ -11,8 +12,8 @@ type Props = {
 };
 
 const Comments: React.FC<Props> = ({ postId, setTrigger, trigger }) => {
+  const { toast } = useToast();
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
   const [formData, setFormData] = useState<CommentType>({
     id: "",
     post_id: postId,
@@ -31,11 +32,29 @@ const Comments: React.FC<Props> = ({ postId, setTrigger, trigger }) => {
     newComment.append("body", formData.body);
 
     const res = await addNewComment(postId, newComment);
-    if (res.error === 1) setError(res.message);
-    else setError("");
+    if (res.error === 1)
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: res.message.map((err: any, index: any) => (
+          <p key={`${err}__${index}`} className="text-sm">
+            {err.field} {err.message}
+          </p>
+        )),
+      });
+    else {
+      setFormData({
+        id: "",
+        post_id: postId,
+        name: "",
+        email: "",
+        body: "",
+      });
+    }
     setLoading(false);
     setTrigger(!trigger);
   };
+
   return (
     <div className="flex flex-col w-full gap-2 border-y-2 py-4">
       <h2 className="text-base font-medium">

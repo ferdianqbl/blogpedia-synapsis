@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import ProgressBarProvider from "@/lib/context/progress-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
         <ProgressBarProvider>
           <Navbar />
           <main className="container py-8">{children}</main>
+          <Toaster />
         </ProgressBarProvider>
       </body>
     </html>
