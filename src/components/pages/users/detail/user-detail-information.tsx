@@ -75,7 +75,11 @@ const UserDetailInformation = ({ userId }: { userId: string | number }) => {
         priority
         className="w-28 h-w-28 object-cover object-center rounded-full"
       />
-      <h1 className="text-2xl font-bold">{user?.name}</h1>
+
+      <h1 className="text-2xl font-bold">
+        {user?.name}{" "}
+        <span className="text-xs font-normal">({user?.gender})</span>
+      </h1>
       <p className="text-gray-400">{user?.email}</p>
       <div className="flex flex-col justify-center items-center gap-1 mt-3 absolute -top-5 right-0">
         <EditUser data={user} trigger={trigger} setTrigger={setTrigger} />
