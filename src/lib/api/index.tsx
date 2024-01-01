@@ -70,7 +70,7 @@ export const getAllPosts = async ({
   } catch (error: any) {
     return {
       error: 1,
-      message: error.message,
+      message: error.response.data,
       data: [],
     } satisfies ResponseType;
   }
@@ -91,7 +91,7 @@ export const getDetailPostById = async (id: string | number) => {
   } catch (error: any) {
     return {
       error: 1,
-      message: error.message,
+      message: error.response.data,
       data: null,
     } satisfies ResponseType;
   }
@@ -114,7 +114,7 @@ export const deletePostById = async (id: string | number) => {
   } catch (error: any) {
     return {
       error: 1,
-      message: error.message,
+      message: error.response.data,
       data: null,
     } satisfies ResponseType;
   }
@@ -158,7 +158,7 @@ export const getAllUsers = async ({
   } catch (error: any) {
     return {
       error: 1,
-      message: error.message,
+      message: error.response.data,
       data: [],
     } satisfies ResponseType;
   }
@@ -295,7 +295,7 @@ export const addNewUserPost = async (
   } catch (error: any) {
     return {
       error: 1,
-      message: error.message,
+      message: error.response.data,
       data: null,
     } satisfies ResponseType;
   }
@@ -317,7 +317,7 @@ export const getCommentsByPostId = async (postId: string | number) => {
   } catch (error: any) {
     return {
       error: 1,
-      message: error.message,
+      message: error.response.data,
       data: [],
     } satisfies ResponseType;
   }
@@ -343,7 +343,7 @@ export const addNewComment = async (
   } catch (error: any) {
     return {
       error: 1,
-      message: error.message,
+      message: error.response.data,
       data: null,
     } satisfies ResponseType;
   }
