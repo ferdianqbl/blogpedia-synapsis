@@ -1,5 +1,7 @@
 This is the project Blog for Synapsis Frontend Test work, by Muhammad Ferdian Iqbal
 
+> [Demo Project](https://blogpedia-synapsis.vercel.app/)
+
 ## Getting Started
 
 First, clone this project:
