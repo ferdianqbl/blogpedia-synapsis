@@ -10,9 +10,11 @@ import EditUser from "./edit-user";
 import { useRouter } from "next/navigation";
 import { Trash } from "lucide-react";
 import AddNewUserPost from "./add-new-user-post";
+import { useToast } from "@/components/ui/use-toast";
 
 const UserDetailInformation = ({ userId }: { userId: string | number }) => {
   const [user, setUser] = useState<UserType | null>(null);
+  const { toast } = useToast();
   const [loading, setLoading] = useState<boolean>(true);
   const [trigger, setTrigger] = useState<boolean>(false);
   const { push } = useRouter();
@@ -25,7 +27,21 @@ const UserDetailInformation = ({ userId }: { userId: string | number }) => {
 
   const deleteHandler = async () => {
     const res = await deleteUserById(userId);
-    if (res.error === 0) {
+    if (res.error === 1)
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: res.message.map((err: any, index: any) => (
+          <p key={`${err}__${index}`} className="text-sm">
+            {err.field} {err.message}
+          </p>
+        )),
+      });
+    else {
+      toast({
+        variant: "success",
+        description: "User deleted successfully",
+      });
       push("/users");
     }
   };

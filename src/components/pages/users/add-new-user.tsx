@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
 import { UserType, addNewUser } from "@/lib/api";
+import { useToast } from "@/components/ui/use-toast";
 
 type Props = {
   trigger: boolean;
@@ -28,7 +29,7 @@ const AddNewUser: React.FC<Props> = ({ trigger, setTrigger }) => {
     name: "",
     status: "active",
   });
-
+  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<[]>([]);
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,6 +46,10 @@ const AddNewUser: React.FC<Props> = ({ trigger, setTrigger }) => {
     else {
       setError([]);
       setTrigger(!trigger);
+      toast({
+        variant: "success",
+        description: "User added successfully",
+      });
     }
     setIsSubmitting(false);
   };

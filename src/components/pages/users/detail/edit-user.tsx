@@ -15,6 +15,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
 import { UserType, addNewUser, editUserById } from "@/lib/api";
 import { Edit } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 type Props = {
   data: UserType | null;
@@ -30,7 +31,7 @@ const EditUser: React.FC<Props> = ({ data, trigger, setTrigger }) => {
     name: data?.name || "",
     status: data?.status || "active",
   });
-
+  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<any[]>([]);
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,6 +48,10 @@ const EditUser: React.FC<Props> = ({ data, trigger, setTrigger }) => {
     else {
       setError([]);
       setTrigger(!trigger);
+      toast({
+        variant: "success",
+        description: "User edited successfully",
+      });
     }
     setIsSubmitting(false);
   };

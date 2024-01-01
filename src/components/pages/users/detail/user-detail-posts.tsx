@@ -8,9 +8,11 @@ import UsersLoading from "../users-loading";
 import { useUserNewPost } from "@/lib/context/user-new-post";
 import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 const UserDetailPosts = ({ userId }: { userId: string | number }) => {
   const [data, setData] = useState<PostType[]>([]);
+  const { toast } = useToast();
   const [loading, setLoading] = useState<boolean>(true);
   const { addUserNewPostButton } = useUserNewPost();
   const [deleteTrigger, setDeleteTrigger] = useState<boolean>(false);
@@ -25,6 +27,10 @@ const UserDetailPosts = ({ userId }: { userId: string | number }) => {
   const deleteHandler = async (postId: string | number) => {
     await deletePostById(postId);
     setDeleteTrigger((prev) => !prev);
+    toast({
+      variant: "success",
+      description: "Post deleted successfully",
+    });
   };
 
   useEffect(() => {

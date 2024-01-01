@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
 import { PostType, addNewUserPost } from "@/lib/api";
 import { useUserNewPost } from "@/lib/context/user-new-post";
 import { useState } from "react";
@@ -26,6 +27,7 @@ const AddNewUserPost: React.FC<Props> = ({ userId }) => {
     title: "",
     body: "",
   });
+  const { toast } = useToast();
   const { addUserNewPostButton, setAddUserNewPostButton } = useUserNewPost();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<any[]>([]);
@@ -43,6 +45,10 @@ const AddNewUserPost: React.FC<Props> = ({ userId }) => {
     else {
       setError([]);
       setAddUserNewPostButton(!addUserNewPostButton);
+      toast({
+        variant: "success",
+        description: "Post added successfully",
+      });
     }
     setIsSubmitting(false);
   };

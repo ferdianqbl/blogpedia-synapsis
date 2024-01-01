@@ -50,6 +50,10 @@ const Comments: React.FC<Props> = ({ postId, setTrigger, trigger }) => {
         email: "",
         body: "",
       });
+      toast({
+        variant: "success",
+        description: "Comment added successfully",
+      });
     }
     setLoading(false);
     setTrigger(!trigger);
