@@ -26,7 +26,7 @@ cp .env.example .env.local
 Then, fill in the variables according to your environment:
 
 ```
-NEXT_PUBLIC_API_URL=YOUR_API_URL
+NEXT_PUBLIC_API_URL=https://gorest.co.in/public/v2
 NEXT_PUBLIC_TOKEN=YOUR_TOKEN
 ```
 
